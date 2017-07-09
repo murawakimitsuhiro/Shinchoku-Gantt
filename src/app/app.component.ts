@@ -61,6 +61,15 @@ export class AppComponent {
     //this.cd.detectChanges();
   }
 
+  handleEventClick(event) {
+    this.event = new MyEvent();
+    this.event.start = event.date.format();
+    this.dialogVisible = true;
+
+    //trigger detection manually as somehow only moving the mouse quickly after click triggers the automatic detection
+    //this.cd.detectChanges();
+  }
+
   saveEvent() {
     /*
     //update
