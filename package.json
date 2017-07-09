@@ -14,7 +14,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^4.0.0",
+    "@angular/animations": "^4.2.6",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/core": "^4.0.0",
@@ -25,6 +25,7 @@
     "@angular/router": "^4.0.0",
     "@types/jquery": "^3.2.6",
     "core-js": "^2.4.1",
+    "font-awesome": "^4.7.0",
     "fullcalendar": "^3.4.0",
     "jquery": "^3.2.1",
     "primeng": "^4.1.0-rc.3",
