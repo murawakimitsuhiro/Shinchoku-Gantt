@@ -9,14 +9,14 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'タスク管理';
 
-  events: any[];
+  tasks: any[];
   header: any;
-  event: MyEvent;
+  task: Task;
   dialogVisible: boolean = false;
   idGen: number = 100;
 
   ngOnInit() {
-    this.events = [
+    this.tasks = [
       {
         "id": 0,
         "title": "iOS PDFライブラリ",
@@ -38,49 +38,28 @@ export class AppComponent {
     };
   };
 
-  handleDayClick(event) {
-    this.event = new MyEvent();
-    this.event.start = event.date.format();
+  handleDayClick(task) {
+    this.task = new Task();
+    this.task.start = task.date.format();
     this.dialogVisible = true;
-
-    //trigger detection manually as somehow only moving the mouse quickly after click triggers the automatic detection
-    //this.cd.detectChanges();
   }
 
   handleEventClick(e) {
-    this.event = new MyEvent();
-    this.event.title = e.calEvent.title;
-
-    let start = e.calEvent.start;
-    let end = e.calEvent.end;
-    if(e.view.name === 'month') {
-      start.stripTime();
-    }
-
-    if(end) {
-      end.stripTime();
-      this.event.end = end.format();
-    }
-
-    this.event.id = e.calEvent.id;
-    this.event.start = start.format();
-    this.event.allDay = e.calEvent.allDay;
-    this.dialogVisible = true;
   }
 
   saveEvent() {
     //update
-    if(this.event.id) {
-      let index: number = this.findEventIndexById(this.event.id);
+    if(this.task.id) {
+      let index: number = this.findEventIndexById(this.task.id);
       if(index >= 0) {
-        this.events[index] = this.event;
+        this.tasks[index] = this.task;
       }
     }
     //new
     else {
-      this.event.id = this.idGen++;
-      this.events.push(this.event);
-      this.event = null;
+      this.task.id = this.idGen++;
+      this.tasks.push(this.task);
+      this.task = null;
     }
 
     this.dialogVisible = false;
@@ -88,17 +67,17 @@ export class AppComponent {
 
 
   deleteEvent() {
-    let index: number = this.findEventIndexById(this.event.id);
+    let index: number = this.findEventIndexById(this.task.id);
     if(index >= 0) {
-      this.events.splice(index, 1);
+      this.tasks.splice(index, 1);
     }
     this.dialogVisible = false;
   }
 
   findEventIndexById(id: number) {
     let index = -1;
-    for(let i = 0; i < this.events.length; i++) {
-      if(id == this.events[i].id) {
+    for(let i = 0; i < this.tasks.length; i++) {
+      if(id == this.tasks[i].id) {
         index = i;
         break;
       }
@@ -108,7 +87,7 @@ export class AppComponent {
   }
 }
 
-export class MyEvent {
+export class Task {
     id: number;
     title: string;
     start: string;
